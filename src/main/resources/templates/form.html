@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Java Azure App</title>
+    <title>POST Form</title>
 </head>
 <body>
-    <h1>Hello from Azure</h1>
+    <h1>Submit Name via POST</h1>
 
     <form action="/submit" method="post">
         <input type="text" name="name" placeholder="Your name" required />
-        <button type="submit">Greet Me</button>
+        <button type="submit">Submit</button>
     </form>
 
     <hr>
 
-    <h2>Previously Greeted:</h2>
+    <h2>Saved Names:</h2>
     <ul>
         <li th:each="g : ${greetings}" th:text="${g.name}"></li>
     </ul>
+
+    <a href="/">← Back to GET version</a>
 </body>
 </html>
