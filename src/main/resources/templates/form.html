@@ -11,11 +11,20 @@
         <button type="submit">Submit</button>
     </form>
 
+    <!-- Feedback message -->
+    <p th:if="${message}" th:text="${message}" style="color: green;"></p>
+    <p th:if="${error}" th:text="${error}" style="color: red;"></p>
+
     <hr>
 
     <h2>Saved Names:</h2>
     <ul>
-        <li th:each="g : ${greetings}" th:text="${g.name}"></li>
+        <li th:each="g : ${greetings}">
+            <span th:text="${g.name}"></span>
+            <form th:action="@{/delete/{id}(id=${g.id})}" method="post" style="display: inline;">
+                <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+            </form>
+        </li>
     </ul>
 
     <a href="/">← Back to GET version</a>

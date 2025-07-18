@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -34,8 +36,21 @@ public class WebController {
 
     @PostMapping("/submit")
     public String submitGreeting(@RequestParam String name, RedirectAttributes redirectAttributes) {
-        greetingRepository.save(new Greeting(name));
+        if (name == null || name.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Name cannot be empty.");
+            return "redirect:/form";
+        }
+
+        greetingRepository.save(new Greeting(name.trim()));
+        redirectAttributes.addFlashAttribute("message", "Hello, " + name + "! Saved successfully.");
         return "redirect:/form";
-    } 
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteGreeting(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        greetingRepository.deleteById(id);
+        redirectAttributes.addFlashAttribute("message", "Entry deleted successfully.");
+        return "redirect:/form";
+    }
 }
 
