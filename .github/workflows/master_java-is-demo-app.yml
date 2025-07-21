@@ -38,6 +38,11 @@ jobs:
         run: ls -l target
 
   deploy:
+  
+    env:
+      AZURE_STORAGE_ACCOUNT_NAME: ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}
+      AZURE_STORAGE_ACCOUNT_KEY: ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }}
+      
     runs-on: ubuntu-latest
     needs: build
     
