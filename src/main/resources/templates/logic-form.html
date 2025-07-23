@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Trigger Logic App</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h2>Trigger EmployeeIntegrationC4C</h2>
+
+    <form th:action="@{/trigger}" method="post">
+        <label>Employee ID:</label>
+        <input type="text" name="employeeId" required />
+        <br/><br/>
+        <label>Action:</label>
+        <select name="action">
+            <option value="delete">Delete</option>
+            <option value="disable">Disable</option>
+            <option value="update">Update</option>
+        </select>
+        <br/><br/>
+        <button type="submit">Trigger</button>
+    </form>
+
+    <div th:if="${message}">
+        <p th:text="${message}"></p>
+    </div>
+</body>
+</html>
